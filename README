@@ -1,0 +1,67 @@
+This is a command line application that allows the user to perform various operations on image files. The application supports loading, selecting, rotating, cropping and saving image files in PGM (P5, P2) and PPM (P6, P3) formats. The supported operations are:
+LOAD: loads an image file specified by the filename that follows the command.
+SELECT: select a rectangular area of the image.
+CROP: crops the selected area of the image.
+ROTATE: rotates the selected area of the image by a specified angle.
+HISTOGRAM: displays the histogram of the selected area of the image.
+SAVE: saves the selected area of the image to a specified file.
+EXIT: exits the application.
+The application uses several helper functions to perform the different operations, including functions to read and write image files in PGM and PPM formats, and functions to perform selection, cropping, rotation, and histogram operations.
+To run the application, simply compile and run the main.c file. The application will prompt the user for commands and perform the corresponding operations on the image.
+
+
+LOAD:
+
+This is a C program that provides a set of utility functions for image processing. The program contains functions for l and saving image files, as well as functions for performing image processing depending on the picture format. If the picture is black and white, the program will allocate memory for a matrix with the specified dimensions. If the picture is coloured, the program will allocate memory for an array with 3 matrices, each saving the values for each pixel grouped by colours.
+The program uses the following functions included in utils.c
+
+
+SELECT:
+
+This is a C function called SELECT that is used to select a rectangular area of a grid with a given height and width (by given coordinates or the hole image).
+The function first checks if the command is SELECT ALL or SELECT x1 y1 x2 y2, then it extracts the coordinates from the command string using the strtok function. It then calls a helper function verif_SELECT() to verify if the coordinates are valid. If the coordinates are valid, the function checks the order of the coordinates and swaps them if necessary, then saves the selection to the four integers passed in as arguments.
+
+
+CROP:
+
+This code is a C implementation of a cropping function for images. The function apply_CROP takes in a color image represented as a 3-dimensional array of integers, a black and white image represented as a 2-dimensional array of integers, and four integers representing the x and y coordinates of the top-left and bottom-right corners of the crop box *x1, *x2, *y1, *y2. The image format is represented by the format character which can be ‘2' or ‘5’ for black and white image or '3'  or  6’ for color image. The function also takes in two integers *height and *width which represent the height and width of the image.
+The function applies the crop operation on the image and updates the *x1, *x2, *y1, *y2, *height, *width accordingly. The cropped image is then returned. The function calls either the CROP_BA function for black and white images or the CROP_C function for color images.
+The CROP_BA function takes in a 2-dimensional array of integers and saves the cropped. It creates a new 2-dimensional array with the dimensions of the crop box and copies the pixels from the original image to the new array. It then updates the dimensions of the original image and frees the memory.
+The CROP_C function takes in a 3-dimensional array of integers and 4 integers representing the x and y coordinates of the crop box. It creates a new 3-dimensional array with the dimensions of the crop box and copies the pixels from the original image to the new array for all 3 color channels. It then updates the dimensions of the original image and frees the memory.
+
+
+ROTATE:
+
+This is C code for a function called "ROTATE" that rotates a selected portion of a matrix by a specified angle. The angle must be a multiple of 90 degrees. The code includes several helper functions, such as "rotate90LEFT" and "rotate90all", which rotate the matrix given by the coordinates or the hole picture by 90 degrees to the left . The code also includes error handling for unsupported rotation angles, and for non-square selections. The functions use dynamic memory allocation and deallocation, and make use of other helper functions such as "alloc_mat" and “free_b_and_w". The program rotates the picture to the left  as many times as the given angle requires.
+
+
+HISTOGRAM:
+
+This is a C program that creates a histogram of an image. The program contains a main function called HISTOGRAM that takes in the following parameters:
+The HISTOGRAM function first checks if the image is in the correct format for a histogram. If not, it prints an error message and returns. If it is, it proceeds to create the histogram by:
+Allocating memory for a copy of the image and a frequency array.
+Initializing the frequency array with 0.
+Calling the det_fr function to populate the frequency array with the frequency of each pixel value in the image.
+Finding the maximum frequency in the frequency array.
+Dividing the frequency array into intervals and for each interval, calculating the number of "*" to be printed in the histogram based on the ratio of the frequency of the interval to the maximum frequency.
+Printing the histogram to the console.
+Freeing the memory allocated for the copy of the image and the frequency array.
+
+
+SAVE:
+
+This code defines three functions: write_text(), write_binary(), and save(). The write_text() function writes the contents of a 2D or 3D matrix (mat or mat_c) to a PPM respectively PGM text file with the given filename. Similarly, the write_binary() function writes the contents of the matrix to a PPM or PGM binary file. The save() function takes in a 2D or 3D matrix, a string command, a photo format, and the height and width of the image. It then extracts the filename from the command and calls either write_text() or write_binary() to save the image in the appropriate format.
+
+
+Additional functions:
+
+This is a C program that contains several functions for working with images.
+The verif_command function takes a string as input and compares it to the string "APPLY". If they match, the function prints "Invalid command" to the console.
+The verify_loaded function tchecks the photo format and verifies if the image has been loaded or not.
+The free_b_and_w function takes a pointer to a 2D integer array and an integer as inputs, and frees the memory allocated for the 2D array.
+The free_color function takes a pointer to a 3D integer array and an integer as inputs, and frees the memory allocated for the 3D array.
+The delete_picture function takes pointers to a 2D integer array, a 3D integer array, and two integers as inputs, it frees the memory allocated for the 2D and 3D arrays, sets the height and width integers to 0.
+The verif_SELECT function takes six integers as inputs, two sets of coordinates (a1, a2, b1, b2) and the height and width of an image, and checks if the coordinates are valid. If they are not, the function prints "Invalid set of coordinates" to the console and returns -1.
+The swap function takes two pointers to integers as inputs and swaps their values.
+The alloc_mat function takes two integers as inputs, representing the dimensions of a matrix, and returns a pointer to a 2D integer array allocated with the given dimensions.
+The initialize function takes a pointer to a double array and an integer as input, it initializes all elements of the array to zero.
